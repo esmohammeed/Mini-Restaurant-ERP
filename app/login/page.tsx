@@ -19,9 +19,9 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50 px-4">
+    <div className="min-h-screen flex items-center justify-center bg-cream-100 px-4">
       <div className="w-full max-w-sm card">
-        <h1 className="text-lg font-semibold text-gray-900 mb-1">
+        <h1 className="text-lg font-semibold text-brand-600 mb-1">
           Restaurant Mini ERP
         </h1>
         <p className="text-sm text-gray-500 mb-5">Sign in to continue</p>

@@ -1,8 +1,13 @@
 'use server';
 
 import { createClient } from '@/lib/supabase/server';
-import { getCairoTodayBoundsUtc } from '@/lib/timezone';
+import { getCairoTodayBoundsUtc, getRangeWindows } from '@/lib/timezone';
 import { formatCurrency } from '@/lib/format';
+import {
+  formatTopProductsAnswer,
+  getTopProducts,
+  rangeFromText,
+} from '@/lib/kpi';
 
 // Deterministic, DB-backed answers for a fixed set of questions.
 // No LLM/embeddings/vector store is used. The matching here is
@@ -69,29 +74,14 @@ export async function askAssistant(question: string): Promise<string> {
     }
 
     case 'top_products': {
-      const { data } = await supabase
-        .from('order_items')
-        .select('product_id, quantity, products(name)');
-
-      if (!data || data.length === 0) {
-        return 'No order history yet to determine top selling products.';
-      }
-
-      const totals = new Map<string, number>();
-      for (const row of data) {
-        const name =
-          (row.products as unknown as { name: string } | null)?.name ??
-          `Product ${row.product_id}`;
-        totals.set(name, (totals.get(name) ?? 0) + row.quantity);
-      }
-
-      const top = [...totals.entries()]
-        .sort((a, b) => b[1] - a[1])
-        .slice(0, 3)
-        .map(([name, qty], i) => `${i + 1}. ${name} (${qty} sold)`)
-        .join('\n');
-
-      return `Top selling products:\n${top}`;
+      // Same rules as the dashboard's "Top selling products" panel:
+      // completed orders only, dated by created_at in Cairo days, for
+      // Today (default), 7 days or 30 days (read from the question,
+      // e.g. "top selling products this week"). Logic lives in lib/kpi.ts.
+      const range = rangeFromText(question);
+      const windows = getRangeWindows(range);
+      const result = await getTopProducts(supabase, windows.current, 5);
+      return formatTopProductsAnswer(result, range);
     }
 
     case 'low_stock': {

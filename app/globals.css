@@ -8,12 +8,19 @@ body {
 }
 
 body {
-  background-color: #f7f8f7;
-  color: #1f2937;
+  background-color: #faf3e8; /* Warm Cream (cream-100) */
+  color: #292524; /* gray-800: readable warm dark text */
+  -webkit-font-smoothing: antialiased;
 }
 
+/* Cards: warm white, subtle beige border, restrained shadow. */
 .card {
-  @apply bg-white rounded-xl shadow-sm border border-gray-100 p-5;
+  @apply bg-cream-50 rounded-xl shadow-card border border-cream-200 p-5;
+}
+
+/* The single highlighted KPI card (Deep Orange). Declared after .card so it wins. */
+.card-highlight {
+  @apply bg-brand-600 border-brand-600 text-brand-50;
 }
 
 .btn-primary {
@@ -21,11 +28,11 @@ body {
 }
 
 .btn-secondary {
-  @apply inline-flex items-center justify-center rounded-lg border border-gray-200 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors;
+  @apply inline-flex items-center justify-center rounded-lg border border-cream-300 bg-cream-50 px-4 py-2 text-sm font-medium text-gray-700 hover:bg-cream-100 disabled:opacity-50 disabled:cursor-not-allowed transition-colors;
 }
 
 .input-field {
-  @apply w-full rounded-lg border border-gray-200 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-transparent;
+  @apply w-full rounded-lg border border-cream-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-transparent;
 }
 
 .table-base {
@@ -33,9 +40,45 @@ body {
 }
 
 .table-base th {
-  @apply px-4 py-2 font-medium text-gray-500 border-b border-gray-100;
+  @apply px-4 py-2 font-medium text-gray-500 border-b border-cream-200;
 }
 
 .table-base td {
-  @apply px-4 py-3 border-b border-gray-50;
+  @apply px-4 py-3 border-b border-gray-100;
+}
+
+/* Chart cards: same surface as the KPI cards (.card), with one shared header,
+   body and footer so every chart panel has identical padding and alignment. */
+.chart-card {
+  @apply flex flex-col;
+}
+
+.chart-card-header {
+  @apply mb-4;
+}
+
+.chart-title {
+  @apply text-sm font-semibold text-gray-800;
+}
+
+.chart-subtitle {
+  @apply ml-2 text-xs font-normal text-gray-500;
+}
+
+.chart-card-body {
+  @apply flex-1;
+}
+
+.chart-card-footer {
+  @apply mt-4 border-t border-cream-200 pt-3 text-sm;
+}
+
+/* DEMO badge: one small, subtle, consistently aligned style everywhere. */
+.demo-badge {
+  @apply ml-2 inline-flex items-center rounded-full border border-brand-200 bg-brand-50 px-2 py-px align-middle text-[10px] font-semibold uppercase leading-4 tracking-wider text-brand-700;
+}
+
+/* Same badge on a Deep Orange surface. Declared after .demo-badge so it wins. */
+.demo-badge-inverse {
+  @apply border-white/30 bg-white/10 text-brand-50;
 }

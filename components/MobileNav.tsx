@@ -23,13 +23,13 @@ export default function MobileNav() {
       <button
         onClick={() => setOpen((v) => !v)}
         aria-label="Toggle navigation"
-        className="rounded-lg border border-gray-200 px-3 py-2 text-sm"
+        className="rounded-lg border border-cream-300 bg-cream-50 px-3 py-2 text-sm text-gray-700"
       >
         ☰
       </button>
 
       {open && (
-        <div className="absolute left-0 right-0 top-full bg-white border-b border-gray-100 shadow-sm z-10">
+        <div className="absolute left-0 right-0 top-full bg-brand-600 border-b border-brand-700 shadow-card z-10">
           <nav className="px-3 py-3 space-y-1">
             {NAV_ITEMS.map((item) => {
               const active = pathname?.startsWith(item.href);
@@ -38,17 +38,18 @@ export default function MobileNav() {
                   key={item.href}
                   href={item.href}
                   onClick={() => setOpen(false)}
-                  className={`block rounded-lg px-3 py-2 text-sm font-medium ${
+                  aria-current={active ? 'page' : undefined}
+                  className={`block rounded-lg px-3 py-2 text-sm transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cream-100 ${
                     active
-                      ? 'bg-brand-50 text-brand-700'
-                      : 'text-gray-600 hover:bg-gray-50'
+                      ? 'relative bg-cream-50 font-semibold text-brand-600 before:absolute before:inset-y-1.5 before:start-0 before:w-[3px] before:rounded-full before:bg-brand-600'
+                      : 'font-medium text-brand-100 hover:bg-brand-700 hover:text-cream-50'
                   }`}
                 >
                   {item.label}
                 </Link>
               );
             })}
-            <div className="pt-2 border-t border-gray-100">
+            <div className="pt-2 border-t border-brand-700">
               <LogoutButton />
             </div>
           </nav>
