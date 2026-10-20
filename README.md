@@ -73,3 +73,29 @@ docs/                    Phase 2 and Phase 3 documentation
   updates `orders.status`.
 - Products and suppliers are soft-deleted (`is_active = false`),
   never hard-deleted.
+
+
+---
+
+## 📸 Screenshots
+
+### Dashboard Overview
+![Dashboard Overview](screenshots/01-dashboard-overview.png)
+
+### Dashboard Analytics
+![Dashboard Analytics](screenshots/02-dashboard-analytics.png)
+
+### Orders
+![Orders](screenshots/03-orders.png)
+
+### Products
+![Products](screenshots/04-products.png)
+
+### Inventory
+![Inventory](screenshots/05-inventory.png)
+
+### Suppliers
+![Suppliers](screenshots/06-suppliers.png)
+
+### AI Assistant
+![AI Assistant](screenshots/07-ai-assistant.png)
